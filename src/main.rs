@@ -7,17 +7,19 @@ fn is_vowel(c: char) -> bool {
     }
 }
 fn main() {
-    let mut word = String::from("apple");
+    let mut word = String::from("Здравствуйте");
 
-    match word.chars().next() {
+    let mut chars = word.chars();
+    match chars.next() {
         Some(c) => match is_vowel(c) {
             true => word.push_str("-hay"),
             _ => {
-                todo!()
-                // let mut result = String::new();
-                // for d in word.chars().next() {
-                // result.add(d)
-                // }
+                let mut result = String::new();
+                chars.for_each(|character| result.push(character));
+                result.push_str("-");
+                result.push(c);
+                result.push_str("ay");
+                word = result.clone();
             }
         },
         None => println!("The string is empty"),
