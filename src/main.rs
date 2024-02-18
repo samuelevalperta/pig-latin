@@ -4,24 +4,32 @@ fn is_vowel(c: char) -> bool {
     matches!(c.to_ascii_lowercase(), 'a' | 'e' | 'i' | 'o' | 'u')
 }
 
-fn main() {
-    let mut word = String::from("Здравствуйте");
-
+fn pig_latin(word: &str) -> Option<String> {
     let mut chars = word.chars();
     match chars.next() {
-        Some(c) => match is_vowel(c) {
-            true => word.push_str("-hay"),
-            _ => {
+        Some(c) => {
+            if is_vowel(c) {
+                let mut result = word.to_string();
+                result.push_str("-hay");
+                Some(result)
+            } else {
                 let mut result = String::new();
-                chars.for_each(|character| result.push(character));
-                result.push('-');
-                result.push(c);
-                result.push_str("ay");
-                word = result;
+                result.extend(chars);
+                Some(format!("{result}-{c}ay"))
             }
-        },
+        }
+        None => None,
+    }
+}
+
+fn main() {
+    let word = String::from("Здравствуйте");
+
+    match pig_latin(&word) {
+        Some(translated_word) => println!(
+            "The word converted into pig-latin is \"{}\"",
+            translated_word
+        ),
         None => println!("The string is empty"),
     }
-
-    println!("The word converted into pig-latin is \"{}\"", word)
 }
