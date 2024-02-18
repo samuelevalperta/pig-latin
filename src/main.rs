@@ -14,7 +14,7 @@ fn main() {
             _ => {
                 let mut result = String::new();
                 chars.for_each(|character| result.push(character));
-                result.push_str("-");
+                result.push('-');
                 result.push(c);
                 result.push_str("ay");
                 word = result;
