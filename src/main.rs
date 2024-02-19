@@ -9,13 +9,9 @@ fn pig_latin(word: &str) -> Option<String> {
     match chars.next() {
         Some(c) => {
             if is_vowel(c) {
-                let mut result = word.to_string();
-                result.push_str("-hay");
-                Some(result)
+                Some(format!("{word}-hay"))
             } else {
-                let mut result = String::new();
-                result.extend(chars);
-                Some(format!("{result}-{c}ay"))
+                Some(format!("{}-{c}ay", chars.as_str()))
             }
         }
         None => None,
@@ -24,6 +20,8 @@ fn pig_latin(word: &str) -> Option<String> {
 
 fn main() {
     let word = String::from("Здравствуйте");
+    // let word = String::from("first");
+    // let word = String::from("apple");
 
     match pig_latin(&word) {
         Some(translated_word) => println!(
